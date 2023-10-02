@@ -1,0 +1,92 @@
+/* Game.js
+ * Top level of game logic.
+ * This is an immortal singleton.
+ */
+ 
+import { DataService } from "./DataService.js";
+import { VideoOut } from "./VideoOut.js";
+import { InputManager } from "./InputManager.js";
+import { Clock } from "./Clock.js";
+import * as K from "./Constants.js";
+ 
+export class Game {
+  static getDependencies() {
+    return [DataService, VideoOut, InputManager, Clock];
+  }
+  constructor(dataService, videoOut, inputManager, clock) {
+    this.dataService = dataService;
+    this.videoOut = videoOut;
+    this.inputManager = inputManager;
+    this.clock = clock;
+    
+    this.running = false;
+    this.inputListener = null;
+  }
+  
+  start() {
+    this.running = true;
+    this.inputListener = this.inputManager.listen((btnid, value, state) => this.onInput(btnid, value, state));
+    this.clock.start();
+    
+    //XXX TEMP
+    this.map = [
+      0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,
+      0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,
+      0x06,0x00,0x00,0x00,0x00,0x00,0x05,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,
+      0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,
+      0x06,0x00,0x00,0x00,0x00,0x00,0x05,0x00,0x00,0x05,0x00,0x00,0x00,0x00,0x00,0x06,
+      0x06,0x00,0x00,0x00,0x00,0x05,0x05,0x00,0x00,0x00,0x00,0x00,0x05,0x00,0x00,0x06,
+      0x06,0x00,0x05,0x00,0x00,0x05,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,
+      0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,
+      0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,
+    ];
+    for (let i=this.map.length; i-->0; ) {
+      if (this.map[i] === 0x00) this.map[i] = Math.floor(Math.random() * 5);
+    }
+    this.sprites = [{
+      x: 100,
+      y: 100,
+      tileid: 0x20,
+    }, {
+      x: 100,
+      y: 74,
+      tileid: 0x10,
+    }];
+  }
+  
+  stop() {
+    this.running = false;
+    this.clock.stop();
+    if (this.inputListener) {
+      this.inputManager.unlisten(this.inputListener);
+      this.inputListener = null;
+    }
+  }
+  
+  update() {
+    const interval = this.clock.update();
+    //TODO the whole game
+  }
+  
+  render() {
+    this.videoOut.clear();
+    //XXX TEMP
+    const tiles = this.dataService.getImage("./img/tiles.png");
+    let dsty = K.TILESIZE >> 1, srcp = 0, row = 0;
+    for (; row<K.FB_ROWC; row++, dsty+=K.TILESIZE) {
+      let dstx = K.TILESIZE >> 1, col = 0;
+      for (; col<K.FB_COLC; col++, dstx+=K.TILESIZE, srcp++) {
+        this.videoOut.blitTile(dstx, dsty, tiles, this.map[srcp]);
+      }
+    }
+    for (const sprite of this.sprites) {
+      this.videoOut.blitTile(sprite.x, sprite.y, tiles, sprite.tileid);
+    }
+  }
+  
+  onInput(btnid, value, state) {
+    console.log(`Game.onInput ${btnid}=${value}[${state}]`);
+  }
+}
+
+Game.singleton = true;
