@@ -3,55 +3,45 @@
  * This is an immortal singleton.
  */
  
+import { Injector } from "./Injector.js";
 import { DataService } from "./DataService.js";
 import { VideoOut } from "./VideoOut.js";
 import { InputManager } from "./InputManager.js";
 import { Clock } from "./Clock.js";
 import * as K from "./Constants.js";
+import { WorldScene } from "./WorldScene.js";
+import { MinigameFactory } from "./MinigameFactory.js";
+import { OvertureModal } from "./OvertureModal.js";
+import { DenouementModal } from "./DenouementModal.js";
  
 export class Game {
   static getDependencies() {
-    return [DataService, VideoOut, InputManager, Clock];
+    return [Injector, DataService, VideoOut, InputManager, Clock, MinigameFactory];
   }
-  constructor(dataService, videoOut, inputManager, clock) {
+  constructor(injector, dataService, videoOut, inputManager, clock, minigameFactory) {
+    this.injector = injector;
     this.dataService = dataService;
     this.videoOut = videoOut;
     this.inputManager = inputManager;
     this.clock = clock;
+    this.minigameFactory = minigameFactory;
     
     this.running = false;
     this.inputListener = null;
+    this.worldScene = null; // Always present when game in progress.
+    this.minigame = null; // Overrides worldScene if present.
+    this.modal = null; // Overrides minigame if present. TODO generalize modal stacking, three things is too many
+    this.inputState = 0;
   }
   
   start() {
     this.running = true;
     this.inputListener = this.inputManager.listen((btnid, value, state) => this.onInput(btnid, value, state));
     this.clock.start();
-    
-    //XXX TEMP
-    this.map = [
-      0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,
-      0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,
-      0x06,0x00,0x00,0x00,0x00,0x00,0x05,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,
-      0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,
-      0x06,0x00,0x00,0x00,0x00,0x00,0x05,0x00,0x00,0x05,0x00,0x00,0x00,0x00,0x00,0x06,
-      0x06,0x00,0x00,0x00,0x00,0x05,0x05,0x00,0x00,0x00,0x00,0x00,0x05,0x00,0x00,0x06,
-      0x06,0x00,0x05,0x00,0x00,0x05,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,
-      0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,
-      0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,0x06,
-    ];
-    for (let i=this.map.length; i-->0; ) {
-      if (this.map[i] === 0x00) this.map[i] = Math.floor(Math.random() * 5);
-    }
-    this.sprites = [{
-      x: 100,
-      y: 100,
-      tileid: 0x20,
-    }, {
-      x: 100,
-      y: 74,
-      tileid: 0x10,
-    }];
+    this.minigameFactory.reset();
+    this.worldScene = this.injector.get(WorldScene);
+    this.minigame = null;
+    this.modal = null;
   }
   
   stop() {
@@ -61,31 +51,104 @@ export class Game {
       this.inputManager.unlisten(this.inputListener);
       this.inputListener = null;
     }
+    this.worldScene = null;
+    this.minigame = null;
+    this.modal = null;
   }
   
   update() {
     const interval = this.clock.update();
-    //TODO the whole game
+    if (this.modal) {
+      this.modal.update(interval, this.inputState);
+      if (this.minigame?.updateDuringSplashes) {
+        this.minigame.update(interval, this.inputState);
+      }
+    } else if (this.minigame) {
+      this.minigame.update(interval, this.inputState);
+    } else {
+      this.worldScene.update(interval, this.inputState);
+    }
   }
   
   render() {
-    this.videoOut.clear();
-    //XXX TEMP
-    const tiles = this.dataService.getImage("./img/tiles.png");
-    let dsty = K.TILESIZE >> 1, srcp = 0, row = 0;
-    for (; row<K.FB_ROWC; row++, dsty+=K.TILESIZE) {
-      let dstx = K.TILESIZE >> 1, col = 0;
-      for (; col<K.FB_COLC; col++, dstx+=K.TILESIZE, srcp++) {
-        this.videoOut.blitTile(dstx, dsty, tiles, this.map[srcp]);
-      }
-    }
-    for (const sprite of this.sprites) {
-      this.videoOut.blitTile(sprite.x, sprite.y, tiles, sprite.tileid);
+    if (this.modal) {
+      this.modal.render();
+      if (this.minigame?.renderDuringSplashes) this.minigame.render();
+    } else if (this.minigame) {
+      this.minigame.render();
+    } else {
+      this.worldScene.render();
     }
   }
   
   onInput(btnid, value, state) {
-    console.log(`Game.onInput ${btnid}=${value}[${state}]`);
+    this.inputState = state;
+  }
+  
+  /* Returns true if the encounter started up ok.
+   * False if anything failed, typically invalid id.
+   * (difficulty) in 0..1
+   */
+  beginEncounter(id, difficulty) {
+    const game = this.minigameFactory.get(id, difficulty, (victory) => {
+      this.wrapUpEncounter(victory);
+    });
+    console.log(`Game.beginEncounter`, { id, difficulty, game });
+    if (!game) return false;
+    this.minigame = game;
+    this.modal = this.injector.get(OvertureModal);
+    this.modal.setup(game);
+    return true;
+  }
+  
+  // Callback from minigame that it has completed.
+  wrapUpEncounter(victory) {
+    const consq = this.calculateConsequences(this.minigame, victory);
+    this.worldScene.hp += consq.hp;
+    this.worldScene.gold += consq.gold;
+    this.modal = this.injector.get(DenouementModal);
+    this.modal.setup(this.minigame, victory, consq);
+  }
+  
+  // This might belong in WorldScene, not Game.
+  calculateConsequences(minigame, victory) {
+    let hp = 0;
+    let gold = 0;
+    if (victory) {
+      gold = 1;
+    } else {
+      hp = -1;
+      gold = -5;
+    }
+    if (this.worldScene.hp + hp < 0) {
+      hp = -this.worldScene.hp;
+    } else if (this.worldScene.hp + hp > this.worldScene.maxhp) {
+      hp = this.worldScene.maxhp - this.worldScene.hp;
+    }
+    if (this.worldScene.gold + gold < 0) {
+      gold = -this.worldScene.gold;
+    } else if (this.worldScene.gold + gold > 9999) {
+      gold = 9999 - this.worldScene.gold;
+    }
+    return { hp, gold };
+  }
+  
+  // OvertureModal asks to dismiss itself.
+  startMinigame() {
+    this.modal = null;
+    if (!this.minigame) return;
+    this.minigame.start();
+  }
+  
+  // DenouementModal asks to dismiss itself.
+  returnFromMinigame() {
+    this.modal = null;
+    this.minigame = null;
+    if (!this.worldScene.hp) {
+      //TODO return to main menu? some kind of cutscene?
+      console.log(`--- GAME OVER ---`);
+      this.start();
+    }
   }
 }
 

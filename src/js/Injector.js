@@ -12,11 +12,12 @@ export class Injector {
     this._instances = {
       Window: window,
       Document: document,
+      Injector: this,
     };
     this._inProgress = [];
   }
   
-  get(clazz) {
+  get(clazz, overrides) {
     let instance = this._instances[clazz.name];
     if (instance) return instance;
     if (this._inProgress.includes(clazz.name)) {
@@ -27,7 +28,8 @@ export class Injector {
     const deps = [];
     if (clazz.getDependencies) {
       for (const dclazz of clazz.getDependencies()) {
-        deps.push(this.get(dclazz));
+        let dinstance = overrides?.find(o => o instanceof dclazz) || this.get(dclazz, overrides);
+        deps.push(dinstance);
       }
     }
     instance = new clazz(...deps);

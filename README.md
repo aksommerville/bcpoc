@@ -8,9 +8,12 @@
 - - [x] Input
 - - [x] No need for audio
 - - [x] Data loader
-- [ ] Outer world play
+- [x] Outer world play
+- xxx Maps from data file - doesn't matter
 - [ ] Stats: hp, maxhp, gold
-- [ ] Trigger encounters
+- [x] Trigger encounters
+- [ ] Encounter start splash
+- [ ] Encounter end splash
 - [ ] Minigames
 - - [ ] Flapping
 - - [ ] Stirring

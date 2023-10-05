@@ -46,4 +46,5 @@ DataService.singleton = true;
 
 DataService.imageNames = [
   "./img/tiles.png",
+  "./img/mg01.png",
 ];

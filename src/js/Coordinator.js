@@ -40,6 +40,7 @@ export class Coordinator {
       this.animationFrame = null;
     }
     this.game.stop();
+    this.videoOut.neutralizeImage();
     this.videoOut.detachFromDom();
     this.inputManager.stop();
     this.running = false;
