@@ -50,5 +50,6 @@ export class OvertureModal {
     this.videoOut.clear();
     this.videoOut.renderText(100, 100, "#fff", `${this.minigame.actorName} CHALLENGES YOU TO`);
     this.videoOut.renderText(100, 120, "#fff", `${this.minigame.contestName}!`);
+    this.videoOut.renderText(100, 150, "#888", `DIFFICULTY: ${Math.floor(this.minigame.difficulty * 100)}%`);
   }
 }

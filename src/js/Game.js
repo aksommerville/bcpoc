@@ -93,7 +93,6 @@ export class Game {
     const game = this.minigameFactory.get(id, difficulty, (victory) => {
       this.wrapUpEncounter(victory);
     });
-    console.log(`Game.beginEncounter`, { id, difficulty, game });
     if (!game) return false;
     this.minigame = game;
     this.modal = this.injector.get(OvertureModal);

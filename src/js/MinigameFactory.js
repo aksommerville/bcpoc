@@ -3,8 +3,8 @@
  
 import { Injector } from "./Injector.js";
 import { MgFlapping } from "./games/MgFlapping.js";
-/*TODO
 import { MgStirring } from "./games/MgStirring.js";
+/*TODO
 import { MgJumprope } from "./games/MgJumprope.js";
 import { MgParachute } from "./games/MgParachute.js";
 import { MgUmbrella } from "./games/MgUmbrella.js";
@@ -31,6 +31,7 @@ import { MgLevitation } from "./games/MgLevitation.js";
  *   updateDuringSplashes: boolean. Normally update() and render() are only called after start(), and not after the Denouement begins.
  *   actorName: string. For user-visible message. All caps, and do not include an article.
  *   contestName: string. All caps, *do* include an article. (because for some games it should be definite and other indefinite).
+ *   difficulty: number. Provided at setup(), and you must retain it.
  */
  
 export class MinigameFactory {
@@ -60,8 +61,8 @@ MinigameFactory.singleton = true;
  */
 MinigameFactory.implementations = [
   MgFlapping,
-  /*TODO
   MgStirring,
+  /*TODO
   MgJumprope,
   MgParachute,
   MgUmbrella,

@@ -59,7 +59,11 @@ export class DenouementModal {
   render() {
     this.videoOut.clear();
     let peny = 100;
-    this.videoOut.renderText(100, peny, "#fff", this.victory ? "YOU WIN!" : "YOU LOSE!");
+    if (this.victory) {
+      this.videoOut.renderText(100, peny, "#0a0", "YOU WIN!");
+    } else {
+      this.videoOut.renderText(100, peny, "#f00", "YOU LOSE!");
+    }
     peny += 20;
     if (this.consq?.hp) {
       this.videoOut.renderText(100, peny, "#fff", `${ (this.consq.hp > 0) ? "GAINED" : "LOST" } ${Math.abs(this.consq.hp)} HP.`);

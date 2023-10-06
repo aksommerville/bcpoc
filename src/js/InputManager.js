@@ -103,3 +103,6 @@ InputManager.BTN_UP = 0x04;
 InputManager.BTN_DOWN = 0x08;
 InputManager.BTN_A = 0x10; // aka z
 InputManager.BTN_B = 0x20; // aka x
+
+InputManager.BTNS_DPAD = InputManager.BTN_LEFT | InputManager.BTN_RIGHT | InputManager.BTN_UP | InputManager.BTN_DOWN;
+InputManager.BTNS_THUMB = InputManager.BTN_A | InputManager.BTN_B;

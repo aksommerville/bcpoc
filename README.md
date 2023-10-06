@@ -10,13 +10,14 @@
 - - [x] Data loader
 - [x] Outer world play
 - xxx Maps from data file - doesn't matter
-- [ ] Stats: hp, maxhp, gold
+- [x] Stats: hp, maxhp, gold
 - [x] Trigger encounters
-- [ ] Encounter start splash
-- [ ] Encounter end splash
+- [x] Encounter start splash
+- [x] Encounter end splash
+- [ ] Joystick input. It's really just not the same on a keyboard.
 - [ ] Minigames
-- - [ ] Flapping
-- - [ ] Stirring
+- - [x] Flapping
+- - [x] Stirring
 - - [ ] Jumprope
 - - [ ] Parachute
 - - [ ] Umbrella

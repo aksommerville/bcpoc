@@ -11,6 +11,7 @@ import { DataService } from "./DataService.js";
 import { WorldHero } from "./WorldHero.js";
 import { Injector } from "./Injector.js";
 import { Game } from "./Game.js";
+import { MinigameFactory } from "./MinigameFactory.js";//XXX TEMP
  
 export class WorldScene {
   static getDependencies() {
@@ -31,6 +32,7 @@ export class WorldScene {
     this.gold = 0;
     this.encounterCounter = 5; // No fancy encounter-trigger logic for this POC.
     this.encounterIdNext = 1; // Just trigger it every fifth step, and increment the ID.
+    this.encounterIdNext = MinigameFactory.implementations.length; // ...on second thought, start from the end since that will be the newest, the one i want to test
   }
   
   update(elapsedMs, input) {
@@ -123,7 +125,7 @@ export class WorldScene {
   advanceEncounter() {
     if (this.encounterCounter--) return;
     this.encounterCounter = 5;
-    const difficulty = 0.5; // In real life, this will be a complicated and important calculation. For the POC, I think probably don't scale on difficulty.
+    const difficulty = Math.random(); // In real life, this will be a complicated and important calculation.
     if (this.game.beginEncounter(this.encounterIdNext++, difficulty)) return true;
     if (this.encounterIdNext <= 1) return;
     this.encounterIdNext = 1;
