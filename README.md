@@ -14,7 +14,7 @@
 - [x] Trigger encounters
 - [x] Encounter start splash
 - [x] Encounter end splash
-- [ ] Joystick input. It's really just not the same on a keyboard.
+- [x] Joystick input. It's really just not the same on a keyboard.
 - [ ] Minigames
 - - [x] Flapping
 - - [x] Stirring
