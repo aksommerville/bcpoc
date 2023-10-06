@@ -4,8 +4,8 @@
 import { Injector } from "./Injector.js";
 import { MgFlapping } from "./games/MgFlapping.js";
 import { MgStirring } from "./games/MgStirring.js";
-/*TODO
 import { MgJumprope } from "./games/MgJumprope.js";
+/*TODO
 import { MgParachute } from "./games/MgParachute.js";
 import { MgUmbrella } from "./games/MgUmbrella.js";
 import { MgSwearing } from "./games/MgSwearing.js";
@@ -62,8 +62,8 @@ MinigameFactory.singleton = true;
 MinigameFactory.implementations = [
   MgFlapping,
   MgStirring,
-  /*TODO
   MgJumprope,
+  /*TODO
   MgParachute,
   MgUmbrella,
   MgSwearing,

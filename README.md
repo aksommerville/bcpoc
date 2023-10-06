@@ -18,7 +18,7 @@
 - [ ] Minigames
 - - [x] Flapping
 - - [x] Stirring
-- - [ ] Jumprope
+- - [x] Jumprope
 - - [ ] Parachute
 - - [ ] Umbrella
 - - [ ] Swearing
