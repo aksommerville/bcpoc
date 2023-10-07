@@ -100,7 +100,7 @@ export class InputManager {
    ***************************************************************************/
    
   _onGamepad(event) {
-    console.log(`InputManager._onGamepad`, event);
+    //console.log(`InputManager._onGamepad`, event);
     switch (event.type) {
       case "gamepadconnected": {
           this.gamepads[event.gamepad.index] = {
@@ -156,8 +156,23 @@ export class InputManager {
         const nv = dev.buttons[i].value;
         if (ov === nv) continue;
         gp.buttons[i] = nv;
-        if (nv) this._setButton((i & 1) ? InputManager.BTN_B : InputManager.BTN_A, 1);
-        else this._setButton((i & 1) ? InputManager.BTN_B : InputManager.BTN_A, 0);
+        
+        // Hard-coding some values for Xbox 360 joysticks, Linux Chrome.
+        // Being a POC, I won't bother generalizing mapping.
+        let dstbtnid = 0;
+        switch (i) {
+          case 12: dstbtnid = InputManager.BTN_UP; break;
+          case 13: dstbtnid = InputManager.BTN_DOWN; break;
+          case 14: dstbtnid = InputManager.BTN_LEFT; break;
+          case 15: dstbtnid = InputManager.BTN_RIGHT; break;
+          case 0: dstbtnid = InputManager.BTN_A; break;
+          case 2: dstbtnid = InputManager.BtN_B; break;
+          default: dstbtnid = (i & 1) ? InputManager.BTN_B : InputManager.BTN_A;
+        }
+        if (!dstbtnid) continue;
+        
+        if (nv) this._setButton(dstbtnid, 1);
+        else this._setButton(dstbtnid, 0);
       }
     }
   }

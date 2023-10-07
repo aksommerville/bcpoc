@@ -19,7 +19,7 @@
 - - [x] Flapping
 - - [x] Stirring
 - - [x] Jumprope
-- - [ ] Parachute
+- - [x] Parachute
 - - [ ] Umbrella
 - - [ ] Swearing
 - - [ ] Dodging
@@ -27,3 +27,4 @@
 - - [ ] Rollerskates
 - - [ ] Traffic
 - - [ ] Levitation
+- [ ] Pick game+difficulty manually

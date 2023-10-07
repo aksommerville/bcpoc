@@ -5,8 +5,8 @@ import { Injector } from "./Injector.js";
 import { MgFlapping } from "./games/MgFlapping.js";
 import { MgStirring } from "./games/MgStirring.js";
 import { MgJumprope } from "./games/MgJumprope.js";
-/*TODO
 import { MgParachute } from "./games/MgParachute.js";
+/*TODO
 import { MgUmbrella } from "./games/MgUmbrella.js";
 import { MgSwearing } from "./games/MgSwearing.js";
 import { MgDoding } from "./games/MgDodging.js";
@@ -60,11 +60,13 @@ MinigameFactory.singleton = true;
  * Each implementation has an id based on its index here.
  */
 MinigameFactory.implementations = [
+  /**/
   MgFlapping,
   MgStirring,
   MgJumprope,
-  /*TODO
   MgParachute,
+  /**/
+  /*TODO
   MgUmbrella,
   MgSwearing,
   MgDodging,
