@@ -27,4 +27,18 @@
 - - [ ] Rollerskates
 - - [ ] Traffic
 - - [ ] Levitation
-- [ ] Pick game+difficulty manually
+- [x] Pick game+difficulty manually
+
+## Observations
+
+- Don't use millisecond update times.
+- - If we want continuous timing, use floats. I'm diving by 1000 all over the place.
+- - More likely: If we want a fully deterministic game, use discrete time. (ie "update" with no elapsed time).
+- 512x288 graphics are laborious to draw, even the scratch graphics that I'm making. Can we cut the resolution in half?
+- Don't use full-screen Overture and Denouement; overlay them on the last frame of world or minigame.
+- - Because it's jarring to have the minigame disappear completely when it ends.
+- I hadn't thought much about the outer world. Now that I see it: We definitely need lots of interaction here.
+- - NPCs with dialogue.
+- - Use item on environment.
+- - Buttons to push, etc.
+- - We might still get away with no moving elements in the outer world but I'm not sure.
