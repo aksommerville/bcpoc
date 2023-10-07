@@ -48,4 +48,5 @@ DataService.imageNames = [
   "./img/tiles.png",
   "./img/mg01.png",
   "./img/mg02.png",
+  "./img/mg03.png",
 ];

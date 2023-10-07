@@ -20,7 +20,7 @@
 - - [x] Stirring
 - - [x] Jumprope
 - - [x] Parachute
-- - [ ] Umbrella
+- - [x] Umbrella
 - - [ ] Swearing
 - - [ ] Dodging
 - - [ ] Balancing

@@ -32,6 +32,7 @@ export class Game {
     this.minigame = null; // Overrides worldScene if present.
     this.modal = null; // Overrides minigame if present. TODO generalize modal stacking, three things is too many
     this.inputState = 0;
+    this.minigameRandomSeed = 1; // must not be zero
   }
   
   start() {
@@ -92,7 +93,7 @@ export class Game {
   beginEncounter(id, difficulty) {
     const game = this.minigameFactory.get(id, difficulty, (victory) => {
       this.wrapUpEncounter(victory);
-    });
+    }, this.minigameRandomSeed++);
     if (!game) return false;
     this.minigame = game;
     this.modal = this.injector.get(OvertureModal);

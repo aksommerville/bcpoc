@@ -6,8 +6,8 @@ import { MgFlapping } from "./games/MgFlapping.js";
 import { MgStirring } from "./games/MgStirring.js";
 import { MgJumprope } from "./games/MgJumprope.js";
 import { MgParachute } from "./games/MgParachute.js";
-/*TODO
 import { MgUmbrella } from "./games/MgUmbrella.js";
+/*TODO
 import { MgSwearing } from "./games/MgSwearing.js";
 import { MgDoding } from "./games/MgDodging.js";
 import { MgBalancing } from "./games/MgBalancing.js";
@@ -20,7 +20,7 @@ import { MgLevitation } from "./games/MgLevitation.js";
  *
  * Must be injectable and *not* singleton.
  * Methods:
- *   setup(difficulty, cbComplete(victory)): Called once, directly after construction.
+ *   setup(difficulty, cbComplete(victory), seed): Called once, directly after construction.
  *   start(): Called once, when the intro splash finished and game begins in earnest.
  *     There's no corresponding (stop) because the minigame itself triggers that, you already know when.
  *   update(elapsedMs, inputState)
@@ -45,11 +45,11 @@ export class MinigameFactory {
   reset() {
   }
   
-  get(id, difficulty, cbComplete) {
+  get(id, difficulty, cbComplete, seed) {
     const meta = MinigameFactory.implementations[id-1];
     if (!meta) return null;
     const game = this.injector.get(meta);
-    game.setup(difficulty, cbComplete);
+    game.setup(difficulty, cbComplete, seed);
     return game;
   }
 }
@@ -66,8 +66,8 @@ MinigameFactory.implementations = [
   MgJumprope,
   MgParachute,
   /**/
-  /*TODO
   MgUmbrella,
+  /*TODO
   MgSwearing,
   MgDodging,
   MgBalancing,

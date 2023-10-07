@@ -28,7 +28,7 @@ export class MgStirring {
     // Define the rest of volatile state...
   }
   
-  setup(difficulty, cbComplete) {
+  setup(difficulty, cbComplete, seed) {
     this.difficulty = difficulty;
     this.cbComplete = cbComplete;
     this.elapsed = 0;
