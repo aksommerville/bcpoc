@@ -8,8 +8,8 @@ import { MgJumprope } from "./games/MgJumprope.js";
 import { MgParachute } from "./games/MgParachute.js";
 import { MgUmbrella } from "./games/MgUmbrella.js";
 import { MgDodging } from "./games/MgDodging.js";
-/*TODO
 import { MgSwearing } from "./games/MgSwearing.js";
+/*TODO
 import { MgBalancing } from "./games/MgBalancing.js";
 import { MgRollerskates } from "./games/MgRollerskates.js";
 import { MgTraffic } from "./games/MgTraffic.js";
@@ -60,16 +60,16 @@ MinigameFactory.singleton = true;
  * Each implementation has an id based on its index here.
  */
 MinigameFactory.implementations = [
-  /**
+  /**/
   MgFlapping,
   MgStirring,
   MgJumprope,
   MgParachute,
   MgUmbrella,
-  /**/
   MgDodging,
-  /*TODO
+  /**/
   MgSwearing,
+  /*TODO
   MgBalancing,
   MgRollerskates,
   MgTraffic,

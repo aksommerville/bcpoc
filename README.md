@@ -21,7 +21,7 @@
 - - [x] Jumprope
 - - [x] Parachute
 - - [x] Umbrella
-- - [ ] Swearing
+- - [x] Swearing
 - - [x] Dodging
 - - [ ] Balancing
 - - [ ] Rollerskates
@@ -43,3 +43,6 @@
 - - Buttons to push, etc.
 - - We might still get away with no moving elements in the outer world but I'm not sure.
 - Starting around MgUmbrella, I used private classes like Player within the games -- that's a good idea. Don't hard-code the two players if they're close to symmetric!
+- We'll need some tooling to extract geometry from decalsheets, probably interactive. And to eliminate the green boundary markers.
+- I wrote everything strictly one-player. Adding a second player could be a fairly substantial drama.
+- Timed games should flash the background or something when the clock is about to run out; one doesn't watch the clock.
