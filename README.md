@@ -22,7 +22,7 @@
 - - [x] Parachute
 - - [x] Umbrella
 - - [ ] Swearing
-- - [ ] Dodging
+- - [x] Dodging
 - - [ ] Balancing
 - - [ ] Rollerskates
 - - [ ] Traffic
@@ -42,3 +42,4 @@
 - - Use item on environment.
 - - Buttons to push, etc.
 - - We might still get away with no moving elements in the outer world but I'm not sure.
+- Starting around MgUmbrella, I used private classes like Player within the games -- that's a good idea. Don't hard-code the two players if they're close to symmetric!

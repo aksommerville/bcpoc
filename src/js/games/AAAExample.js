@@ -59,5 +59,5 @@ MgStirring.IMAGE_NAME = "./img/mg01.png";
 
 MgStirring.BGCOLOR = "#80a060";
 
-MgStirring.IMAGE_BOUNDS = {
+MgStirring.IMG = {
 };
