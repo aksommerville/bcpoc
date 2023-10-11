@@ -9,8 +9,8 @@ import { MgParachute } from "./games/MgParachute.js";
 import { MgUmbrella } from "./games/MgUmbrella.js";
 import { MgDodging } from "./games/MgDodging.js";
 import { MgSwearing } from "./games/MgSwearing.js";
-/*TODO
 import { MgBalancing } from "./games/MgBalancing.js";
+/*TODO
 import { MgRollerskates } from "./games/MgRollerskates.js";
 import { MgTraffic } from "./games/MgTraffic.js";
 import { MgLevitation } from "./games/MgLevitation.js";
@@ -67,10 +67,10 @@ MinigameFactory.implementations = [
   MgParachute,
   MgUmbrella,
   MgDodging,
-  /**/
   MgSwearing,
-  /*TODO
+  /**/
   MgBalancing,
+  /*TODO
   MgRollerskates,
   MgTraffic,
   MgLevitation,

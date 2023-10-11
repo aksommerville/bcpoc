@@ -27,6 +27,7 @@ window.addEventListener("load", () => {
       event.preventDefault();
       const mgid = +select.value;
       const difficulty = +document.querySelector("input[name='difficulty']").value;
+      console.log(`difficulty=${difficulty}`);
       coordinator.game.beginEncounter(mgid, difficulty);
     });
   }

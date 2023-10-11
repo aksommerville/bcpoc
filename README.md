@@ -23,7 +23,7 @@
 - - [x] Umbrella
 - - [x] Swearing
 - - [x] Dodging
-- - [ ] Balancing
+- - [x] Balancing
 - - [ ] Rollerskates
 - - [ ] Traffic
 - - [ ] Levitation

@@ -49,10 +49,15 @@ export class Coordinator {
   _onFrame() {
     this.animationFrame = null;
     if (!this.running) return;
-    this.inputManager.update();
-    this.game.update();
-    this.game.render();
-    this.animationFrame = this.window.requestAnimationFrame(() => this._onFrame());
+    try {
+      this.inputManager.update();
+      this.game.update();
+      this.game.render();
+      this.animationFrame = this.window.requestAnimationFrame(() => this._onFrame());
+    } catch (e) {
+      console.error(`Caught by Coordinator._onFrame, will rethrow`, e);
+      throw e;
+    }
   }
 }
 
