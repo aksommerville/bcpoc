@@ -25,7 +25,7 @@
 - - [x] Dodging
 - - [x] Balancing
 - - [x] Rollerskates
-- - [ ] Traffic
+- - [x] Traffic
 - - [ ] Levitation
 - [x] Pick game+difficulty manually
 

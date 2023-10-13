@@ -11,8 +11,8 @@ import { MgDodging } from "./games/MgDodging.js";
 import { MgSwearing } from "./games/MgSwearing.js";
 import { MgBalancing } from "./games/MgBalancing.js";
 import { MgRollerskates } from "./games/MgRollerskates.js";
-/*TODO
 import { MgTraffic } from "./games/MgTraffic.js";
+/*TODO
 import { MgLevitation } from "./games/MgLevitation.js";
 /**/
 
@@ -69,10 +69,10 @@ MinigameFactory.implementations = [
   MgDodging,
   MgSwearing,
   MgBalancing,
-  /**/
   MgRollerskates,
-  /*TODO
+  /**/
   MgTraffic,
+  /*TODO
   MgLevitation,
   /**/
 ];
