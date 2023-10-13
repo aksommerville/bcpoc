@@ -24,7 +24,7 @@
 - - [x] Swearing
 - - [x] Dodging
 - - [x] Balancing
-- - [ ] Rollerskates
+- - [x] Rollerskates
 - - [ ] Traffic
 - - [ ] Levitation
 - [x] Pick game+difficulty manually

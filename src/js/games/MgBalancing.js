@@ -283,7 +283,7 @@ MgBalancing.IMG = {
   dotLegs: [383, 95, 47, 29, 4, 1], // legs have a control point and are *not* all the same size. they *are* all same height and vert ctl.
   dotLegsLeft: [431, 93, 49, 29, 8, 1],
   dotLegsRight: [383, 125, 53, 29, 4, 1],
-  orn: [326, 281, 79, 95], // orn frames same size
-  ornWalk: [406, 281, 79, 95],
+  orn: [326, 243, 79, 95], // orn frames same size
+  ornWalk: [406, 243, 79, 95],
   goal: [481, 92, 16, 56],
 };
