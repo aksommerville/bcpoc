@@ -12,9 +12,7 @@ import { MgSwearing } from "./games/MgSwearing.js";
 import { MgBalancing } from "./games/MgBalancing.js";
 import { MgRollerskates } from "./games/MgRollerskates.js";
 import { MgTraffic } from "./games/MgTraffic.js";
-/*TODO
 import { MgLevitation } from "./games/MgLevitation.js";
-/**/
 
 /* Minigame implementations definition.
  *
@@ -56,11 +54,9 @@ export class MinigameFactory {
 
 MinigameFactory.singleton = true;
 
-/* TODO Define an interface for these.
- * Each implementation has an id based on its index here.
+/* Each implementation has an id based on its index here.
  */
 MinigameFactory.implementations = [
-  /**/
   MgFlapping,
   MgStirring,
   MgJumprope,
@@ -70,9 +66,6 @@ MinigameFactory.implementations = [
   MgSwearing,
   MgBalancing,
   MgRollerskates,
-  /**/
   MgTraffic,
-  /*TODO
   MgLevitation,
-  /**/
 ];

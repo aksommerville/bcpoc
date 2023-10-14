@@ -15,7 +15,7 @@
 - [x] Encounter start splash
 - [x] Encounter end splash
 - [x] Joystick input. It's really just not the same on a keyboard.
-- [ ] Minigames
+- [x] Minigames
 - - [x] Flapping
 - - [x] Stirring
 - - [x] Jumprope
@@ -26,7 +26,7 @@
 - - [x] Balancing
 - - [x] Rollerskates
 - - [x] Traffic
-- - [ ] Levitation
+- - [x] Levitation
 - [x] Pick game+difficulty manually
 
 ## Observations
